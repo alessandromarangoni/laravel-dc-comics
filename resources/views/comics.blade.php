@@ -9,19 +9,19 @@
                 <a class="btn btn-primary" href="{{ route("comics.create") }}">Aggiungi un nuovo prodotto</a>
             </div>
         </div>
-        <div>
-            <ul>
-                @foreach ($comics as $item)
-                    <ul>
-                        <li>{{$item->title}}</li>
-                        <li>{{$item->description}}</li>
-                        <li>{{$item->thumb}}</li>
-                        <li>{{$item->price}}</li>
-                        <li>{{$item->series}}</li>
-                        <li>{{$item->sale_date}}</li>
+        <div class="d-flex flex-wrap justify-content-between">
+            @foreach ($comics as $item)
+                <div class="card m-1 w-25 mt-5">
+                    <ul class="list-unstyled">
+                        <li class="p-2">{{$item->title}}</li>
+                        <li class="p-2">{{$item->description}}</li>
+                        <li class="p-2">{{$item->thumb}}</li>
+                        <li class="p-2">{{$item->price}}</li>
+                        <li class="p-2">{{$item->series}}</li>
+                        <li class="p-2">{{$item->sale_date}}</li>
                     </ul>
-                @endforeach
-            </ul>
+                </div>
+            @endforeach
         </div>
     </div>
 
