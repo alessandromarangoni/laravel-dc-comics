@@ -11,7 +11,8 @@
         </div>
         <div class="d-flex flex-wrap justify-content-between">
             @foreach ($comics as $item)
-                <div class="card m-1 w-25 mt-5">
+            <a href="{{route('comics.show',$item->id)}} "class="m-1 w-25 mt-5 ">
+                <div class="card m-1 w-100 mt-5 ">
                     <ul class="list-unstyled">
                         <li class="p-2">{{$item->title}}</li>
                         <li class="p-2">{{$item->description}}</li>
@@ -21,6 +22,7 @@
                         <li class="p-2">{{$item->sale_date}}</li>
                     </ul>
                 </div>
+            </a>    
             @endforeach
         </div>
     </div>
