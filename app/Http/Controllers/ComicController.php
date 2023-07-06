@@ -28,6 +28,7 @@ class ComicController extends Controller
         return view('comics-form');
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -38,14 +39,14 @@ class ComicController extends Controller
     {
         $data = $request->all();
         
-        $newProduct = new Comic;
-        $newProduct->title = $data['title'];
-        $newProduct->description = $data['description'];
-        $newProduct->thumb = $data['thumb'];
-        $newProduct->price = $data['price'];
-        $newProduct->series = $data['series'];
-        $newProduct->sale_date = $data['sale_date'];
-        $newProduct->save();
+        $newComic = new Comic;
+        $newComic->title = $data['title'];
+        $newComic->description = $data['description'];
+        $newComic->thumb = $data['thumb'];
+        $newComic->price = $data['price'];
+        $newComic->series = $data['series'];
+        $newComic->sale_date = $data['sale_date'];
+        $newComic->save();
         
         return redirect()->route('home');
     }
@@ -68,9 +69,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comic $comic)
     {
-        //
+        return view ('edit', compact('comic'));
     }
 
     /**
@@ -80,9 +81,19 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $comic)
     {
-        //
+        $data = $request->all() ;
+
+        $comic->title = $data['title'];
+        $comic->description = $data['description'];
+        $comic->thumb = $data['thumb'];
+        $comic->price = $data['price'];
+        $comic->series = $data['series'];
+        $comic->sale_date = $data['sale_date'];
+        $comic->update();
+
+        return view("comic-show", compact("comic") );
     }
 
     /**

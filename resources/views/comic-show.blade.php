@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <a class="btn btn-primary" href="{{ route("comics.edit", $comic) }}">Modifica questo prodotto</a>
             <div class="card">
                 <h1>{{$comic->title}}</h1>
                 <h5>{{$comic->description}}</h5>
