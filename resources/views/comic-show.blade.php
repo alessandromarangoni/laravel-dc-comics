@@ -12,10 +12,12 @@
             </form>
             <div class="card">
                 <h1>{{$comic->title}}</h1>
-                <h5>{{$comic->description}}</h5>
+                <h5>description:</h5> <span>{{$comic->description}}</span>
                 <h5>{{$comic->price}}</h5>
-                <h5>{{$comic->thumb}}</h5>
+                <img src="{{$comic->thumb}}" alt="{{$comic->title}}" class="img-fluid">
                 <h5>{{$comic->sale_date}}</h5>
+                <h5> artists: </h5><span> {{$comic->artist}}</span>
+                <h5>Writers: </h5> <span> {{$comic->writers}}</span>
             </div>
         </div>
     </div>
