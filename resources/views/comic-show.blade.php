@@ -4,7 +4,12 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <a class="btn btn-primary" href="{{ route("comics.edit", $comic) }}">Modifica questo prodotto</a>
+            <a class="btn btn-primary" href="{{ route("comics.edit", $comic) }}">modifica comic</a>
+            <form action="{{route('comics.destroy', $comic )}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <input type="submit" class="btn btn-warning" value="cancella">
+            </form>
             <div class="card">
                 <h1>{{$comic->title}}</h1>
                 <h5>{{$comic->description}}</h5>
