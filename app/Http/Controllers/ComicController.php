@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Unique;
 
 class ComicController extends Controller
 {
@@ -37,8 +38,21 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
         
+        $request->validate([
+
+            "title" => "required|min:3|max:250",
+            "description" => "required|min:10|max:2550",
+            "price" => "required",
+            "series" => "required|max:250",
+            "sale_date" => "required",
+            "artists" => "required",
+            "writers" => "required",
+
+        ]);
+
+        $data = $request->all();
+
         $newComic = new Comic;
         $newComic->title = $data['title'];
         $newComic->description = $data['description'];

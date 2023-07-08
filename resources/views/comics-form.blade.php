@@ -4,9 +4,21 @@
 <div class="container my-3">
     <div class="row my-5">
         <div class="col-6">
-            <form action="{{route('comics.store')}}" method="post">
+
+            @if ($errors->any())
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            @endif
+
+            <form action="{{route('comics.store')}}" method="post" class="needs-validation">
+
                 @csrf
-            
+                
+
+
                 <label for="name">title</label>
                 <input class="form-control" type="text" name="title">
 
