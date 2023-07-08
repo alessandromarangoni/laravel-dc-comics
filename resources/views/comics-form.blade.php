@@ -16,8 +16,6 @@
             <form action="{{route('comics.store')}}" method="post" class="needs-validation">
 
                 @csrf
-                
-
 
                 <label for="title">title</label>
                 <input class="form-control @error('title') is-invalid @enderror"  type="text" name="title">
@@ -25,29 +23,42 @@
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
 
-                <label for="name">description</label>
+                <label for="description">description</label>
                 <input class="form-control  @error('description') is-invalid @enderror" type="text" name="description">
                 @error('description')
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
-                <label for="name">thumb</label>
+                <label for="thumb">thumb</label>
                 <input class="form-control" type="text" name="thumb">
 
-                <label for="name">price</label>
+                <label for="price">price</label>
                 <input class="form-control  @error('price') is-invalid @enderror" type="text" name="price">
                 @error('price')
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
-                <label for="name">series</label>
+                <label for="series">series</label>
                 <input class="form-control  @error('series') is-invalid @enderror" type="text" name="series">
                 @error('series')
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
-                <label for="name">sale_date</label>
+                <label for="sale_date">sale_date</label>
                 <input class="form-control  @error('sale_date') is-invalid @enderror" type="text" name="sale_date">
                 @error('sale_date')
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
+
+                <label for="sale_date">artist</label>
+                <input class="form-control  @error('artist') is-invalid @enderror" type="text" name="artist">
+                @error('artist')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
+
+                <label for="writers">sale_date</label>
+                <input class="form-control  @error('writers') is-invalid @enderror" type="text" name="writers">
+                @error('writers')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror 
+
                 <input class="form-control mt-4 btn btn-primary" type="submit" value="Crea">
             </form>
         </div>

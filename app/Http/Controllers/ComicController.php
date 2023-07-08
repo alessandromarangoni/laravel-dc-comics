@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Unique;
+use Illuminate\Support\Facades\Validator;
 
 class ComicController extends Controller
 {
@@ -29,6 +30,31 @@ class ComicController extends Controller
         return view('comics-form');
     }
 
+    private function validateComic($data)
+    {
+        return $validator = validator::make($data, [
+
+            "title" => "required|min:3|max:250",
+            "description" => "required|min:10|max:2550",
+            "thumb"=> "max:2550",
+            "price" => "required",
+            "series" => "required|max:250",
+            "sale_date" => "required",
+            "artist" => "required",
+            "writers" => "required",
+        ],
+        [
+            'title' =>'must be at least three characters and not more than twenty five hundred',
+            'description' =>'must have minimum of ten words and maximum two thousand fifty.',
+            'thumb'=>'must be max 2550 char',
+            'price' =>'should contain only numeric values with no special character or space allowed.',
+            'series' =>'maximum length is limited to one hundered fiftieth word.',
+            'sale_date'=>'sale date should follow the format yyyy/mm/dd.',
+            'artist'=>'artist names must be separated by commas.',
+            'writers'=>'artist names must be separated by commas.'
+        ]
+        )->validate();
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,19 +65,8 @@ class ComicController extends Controller
     public function store(Request $request)
     {
         
-        $request->validate([
 
-            "title" => "required|min:3|max:250",
-            "description" => "required|min:10|max:2550",
-            "price" => "required",
-            "series" => "required|max:250",
-            "sale_date" => "required",
-            "artists" => "required",
-            "writers" => "required",
-
-        ]);
-
-        $data = $request->all();
+        $data = $this->validateComic($request->all());
 
         $newComic = new Comic;
         $newComic->title = $data['title'];
@@ -60,6 +75,9 @@ class ComicController extends Controller
         $newComic->price = $data['price'];
         $newComic->series = $data['series'];
         $newComic->sale_date = $data['sale_date'];
+        $newComic->artist = json_encode($data['artist']);
+        $newComic->writers = json_encode($data['writers']);
+        
         $newComic->save();
         
         return redirect()->route('home');
@@ -97,7 +115,7 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        $data = $request->all() ;
+        $data = $this->validateComic($request->all()) ;
 
         $comic->title = $data['title'];
         $comic->description = $data['description'];
@@ -105,6 +123,8 @@ class ComicController extends Controller
         $comic->price = $data['price'];
         $comic->series = $data['series'];
         $comic->sale_date = $data['sale_date'];
+        $comic->artist = json_encode($data['artist']);
+        $comic->writers = json_encode($data['writers']);
         $comic->update();
 
         return view("comic-show", compact("comic") );

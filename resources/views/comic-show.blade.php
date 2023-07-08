@@ -16,8 +16,8 @@
                 <h5>{{$comic->price}}</h5>
                 <img src="{{$comic->thumb}}" alt="{{$comic->title}}" class="img-fluid">
                 <h5>{{$comic->sale_date}}</h5>
-                <h5> artists: </h5><span> {{$comic->artist}}</span>
-                <h5>Writers: </h5> <span> {{$comic->writers}}</span>
+                <h5> artists: </h5><span> {{json_decode($comic->artist)}}</span>
+                <h5>Writers: </h5> <span> {{json_decode($comic->writers)}}</span>
             </div>
         </div>
     </div>
