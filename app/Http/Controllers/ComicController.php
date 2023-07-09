@@ -64,23 +64,31 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        
+    
+    $data = $this->validateComic($request->all());
 
-        $data = $this->validateComic($request->all());
+    $newComic = new Comic;
+    foreach ($data as $key => $value) {
+        
+        $newComic->$key = $value;
+        if ($newComic->$key === 'artist'|| 'writers') {
+            $newComic->artist = json_encode($value);
+            $newComic->writers = json_encode($value);
+        }
+    }
+    $newComic->save();
 
-        $newComic = new Comic;
-        $newComic->title = $data['title'];
-        $newComic->description = $data['description'];
-        $newComic->thumb = $data['thumb'];
-        $newComic->price = $data['price'];
-        $newComic->series = $data['series'];
-        $newComic->sale_date = $data['sale_date'];
-        $newComic->artist = json_encode($data['artist']);
-        $newComic->writers = json_encode($data['writers']);
-        
-        $newComic->save();
-        
-        return redirect()->route('home');
+    /*$newComic->title = $data['title'];
+    $newComic->description = $data['description'];
+    $newComic->thumb = $data['thumb'];
+    $newComic->price = $data['price'];
+    $newComic->series = $data['series'];
+    $newComic->sale_date = $data['sale_date'];
+    $newComic->artist = json_encode($data['artist']);
+    $newComic->writers = json_encode($data['writers']);
+    $newComic->save();
+    */
+    return redirect()->route('home');
     }
 
     /**
