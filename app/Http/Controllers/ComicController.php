@@ -126,6 +126,8 @@ class ComicController extends Controller
         $data = $this->validateComic($request->all()) ;
 
         $comic->fill($data);
+        $comic->artist = json_encode($data['artist']);
+        $comic->writers = json_encode($data['writers']);
         $comic->update();
     
     /*  $comic->title = $data['title'];
