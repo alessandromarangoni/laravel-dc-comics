@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreComicRequest;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Unique;
@@ -30,31 +31,6 @@ class ComicController extends Controller
         return view('comics-form');
     }
 
-    private function validateComic($data)
-    {
-        return $validator = validator::make($data, [
-
-            "title" => "required|min:3|max:250",
-            "description" => "required|min:10|max:2550",
-            "thumb"=> "max:2550",
-            "price" => "required",
-            "series" => "required|max:250",
-            "sale_date" => "required",
-            "artist" => "required",
-            "writers" => "required",
-        ],
-        [
-            'title' =>'must be at least three characters and not more than twenty five hundred',
-            'description' =>'must have minimum of ten words and maximum two thousand fifty.',
-            'thumb'=>'must be max 2550 char',
-            'price' =>'should contain only numeric values with no special character or space allowed.',
-            'series' =>'maximum length is limited to one hundered fiftieth word.',
-            'sale_date'=>'sale date should follow the format yyyy/mm/dd.',
-            'artist'=>'artist names must be separated by commas.',
-            'writers'=>'artist names must be separated by commas.'
-        ]
-        )->validate();
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -62,10 +38,10 @@ class ComicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComicRequest $request)
     {
     
-    $data = $this->validateComic($request->all());
+    $data = $request->validated();
 
     $newComic = new Comic;
     foreach ($data as $key => $value) {
@@ -121,9 +97,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comic $comic)
+    public function update(StoreComicRequest $request, Comic $comic)
     {
-        $data = $this->validateComic($request->all()) ;
+        $data = $request->validated(); ;
 
         $comic->fill($data);
         $comic->artist = json_encode($data['artist']);
