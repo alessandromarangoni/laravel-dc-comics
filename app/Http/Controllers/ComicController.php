@@ -125,7 +125,10 @@ class ComicController extends Controller
     {
         $data = $this->validateComic($request->all()) ;
 
-        $comic->title = $data['title'];
+        $comic->fill($data);
+        $comic->update();
+    
+    /*  $comic->title = $data['title'];
         $comic->description = $data['description'];
         $comic->thumb = $data['thumb'];
         $comic->price = $data['price'];
@@ -134,7 +137,7 @@ class ComicController extends Controller
         $comic->artist = json_encode($data['artist']);
         $comic->writers = json_encode($data['writers']);
         $comic->update();
-
+        */
         return view("comic-show", compact("comic") );
     }
 
